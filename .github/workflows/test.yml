@@ -35,6 +35,10 @@ jobs:
             echo "The parent SHA of the cherry-pick is $PARENT_SHA"
           fi
 
+      - name: Use parent SHA
+        run: |
+          echo "Parent SHA is $PARENT_SHA"
+
       - name: Search PR
         uses: actions/github-script@v7
         id: search-pr
