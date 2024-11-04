@@ -19,6 +19,22 @@ jobs:
 
       
     steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Check if cherry-pick and get parent SHA
+        run: |
+          PARENT_SHA=$(git log -1 --format="%P" $GITHUB_SHA | head -n 1)
+          if [ -z "$PARENT_SHA" ]; then
+            echo "This commit is not a cherry-pick."
+          else
+            echo "PARENT_SHA=$PARENT_SHA" >> $GITHUB_ENV
+            echo "The parent SHA of the cherry-pick is $PARENT_SHA"
+          fi
+
       - name: Search PR
         uses: actions/github-script@v7
         id: search-pr
@@ -43,7 +59,7 @@ jobs:
                 repo: context.repo.repo,
               })
               for(const commit of commits.data) {
-                core.info(`commit: ${commit}, github.sha: ${{github.sha}}`)
+                core.info(`commit: ${commit.sha}, github.sha: ${{github.PARENT_SHA}}`)
               }
             }
 
