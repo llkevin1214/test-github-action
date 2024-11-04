@@ -43,7 +43,7 @@ jobs:
                 repo: context.repo.repo,
               })
               for(const commit of commits.data) {
-                core.info(`commit: ${commit.sha}, github.sha: ${{github.sha}}`)
+                core.info(`commit: ${commit}, github.sha: ${{github.sha}}`)
               }
             }
 
