@@ -36,7 +36,6 @@ jobs:
 
             let targetCommit = null;
             let targetPR = null;
-            core.info(`all_pull_requests: ${JSON.stringify(all_pull_requests)}`);
             for(const pr of all_pull_requests) {
               const commits = await github.rest.pulls.listCommits({
                 owner: context.repo.owner,
@@ -44,7 +43,7 @@ jobs:
                 repo: context.repo.repo,
               })
               for(const commit of commits.data) {
-                core.info(`commit: ${JSON.stringify(commit)}, github.sha: ${{github.sha}}`)
+                core.info(`commit: ${commit.sha}, github.sha: ${{github.sha}}`)
               }
             }
 
