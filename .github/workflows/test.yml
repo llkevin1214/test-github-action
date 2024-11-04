@@ -30,7 +30,7 @@ jobs:
             const { data: all_pull_requests } = await github.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              base: 'production',
+              base: 'main',
               state: 'open',
             })
 
