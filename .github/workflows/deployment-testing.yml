@@ -2,12 +2,8 @@
 name: deployment-testing
 
 on:
-  push:
-    branches:
-      - 'testing'
   repository_dispatch:
     types: [testing-ci-finish]
-  workflow_dispatch:
 
 env:
   AWS_REGION: ap-east-1
