@@ -14,5 +14,5 @@ jobs:
         uses: peter-evans/repository-dispatch@v3
         with:
           event-type: testing-ci-finish
-          client-payload: '{"ref": "testing", "clickupCustomId": "LOAN-5670"}'
+          # client-payload: '{"ref": "testing", "clickupCustomId": "LOAN-5670"}'
           
