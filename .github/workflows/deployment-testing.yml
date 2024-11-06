@@ -1,0 +1,38 @@
+# Ref to: https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-amazon-elastic-container-service
+name: deployment-testing
+
+on:
+  repository_dispatch:
+    types: [testing-ci-finish]
+
+env:
+  AWS_REGION: ap-east-1
+  ECR_REPOSITORY:
+  ECS_SERVICE:
+  ECS_CLUSTER:
+  CONTAINER_NAME:
+  ECS_TASK_DEFINITION:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print clickupCustomId
+        run: |
+          echo ${{github.event.client_payload.clickupCustomId}}
+
+      - name: Test update clickup task status
+        uses: gagoar/invoke-aws-lambda@master
+        with:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET }}
+          REGION: ${{ env.AWS_REGION }}
+          FunctionName: engineer-updateClickupTaskStatus-testing
+          Payload: '{ "clickupTaskCustomId": "${{github.event.client_payload.clickupCustomId}}" }'
+          InvocationType: Event
