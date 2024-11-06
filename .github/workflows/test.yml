@@ -6,8 +6,6 @@ on:
       - "testing"
 
 
-      
-
 jobs:
   deploy:
     name: Deploy
