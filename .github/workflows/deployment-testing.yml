@@ -16,8 +16,6 @@ env:
   ECS_CLUSTER:
   CONTAINER_NAME:
   ECS_TASK_DEFINITION:
-  GRANTIT_PRIVATE_KEY: ${{ secrets.TEST_GRANTIT_PRIVATE_KEY }}
-  HSBC_PUBLIC_KEY: ${{ secrets.TEST_HSBC_PUBLIC_KEY }}
 
 concurrency:
   group: ${{ github.workflow }}
